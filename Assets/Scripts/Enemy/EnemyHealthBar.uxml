@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Enemy/EnemyHeathBar.uss?fileID=7433441132597879392&amp;guid=57a9401cb646d3a4590c9c69fcafb7dd&amp;type=3#EnemyHeathBar" />
+    <ui:VisualElement name="health-bar-container" style="flex-grow: 1; background-size: 200px 35px;">
+        <ui:VisualElement name="health-bar-frame" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; top: 0; left: 0; height: 90px; width: 330px; margin-top: 8px; margin-right: 8px; margin-bottom: 8px; margin-left: 8px;">
+            <ui:VisualElement name="health-bar-background" style="flex-grow: 1; right: 0; bottom: auto; top: 0; width: 300px; align-items: stretch; align-self: flex-end; justify-content: space-between;">
+                <ui:VisualElement name="health-bar-fill" style="flex-grow: 1; background-color: rgb(65, 222, 105);" />
+                <ui:Label text="Health" name="health-bar-label" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

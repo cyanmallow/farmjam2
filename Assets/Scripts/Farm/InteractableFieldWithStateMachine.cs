@@ -1,43 +1,58 @@
+using System;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
+[RequireComponent(typeof(Tile))]
 public class InteractableFieldWithStateMachine : MonoBehaviour, IInteractable
 {
-    [SerializeField] private StateMachineManager stateMachineManager;
+    private FarmPlotState farmPlotState;
+    [SerializeField] private ItemData item;
+    public SeedData testRadish;
+    private Tile currentTile;
+    private Inventory playerInventory;
+
+    private void Awake()
+    {
+        if (farmPlotState == null)
+        {
+            farmPlotState = GetComponent<FarmPlotState>();
+            currentTile = GetComponent<Tile>();
+            playerInventory = FindFirstObjectByType<Inventory>();
+        }
+    }
     public void OnClickAction()
     {
-        switch (stateMachineManager._currentState)
+        PlayerMovement.Instance.WalkTo(farmPlotState.transform);
+        if (farmPlotState._currentState is EmptyState)
         {
-            case EmptyState emptyState:
-                Debug.Log("Empty state clicked!");
-                stateMachineManager.SwitchState(stateMachineManager.GrowingStateInstance);
-                break;
-            case GrowingState growingState:
-                Debug.Log("Growing state clicked!");
-                stateMachineManager.SwitchState(stateMachineManager.HarvestStateInstance);
-                break;
-            case HarvestState harvestState:
-                Debug.Log("Harvest state clicked!");
-                stateMachineManager.SwitchState(stateMachineManager.EmptyStateInstance);
-                break;
-            default:
-                Debug.LogWarning("Unknown state clicked!");
-                break;
+            Debug.Log("Empty state clicked!");
+            farmPlotState.SwitchState(farmPlotState.GrowingStateInstance);
+            Plant(testRadish, currentTile);
+            DayMonthManager.Instance.AddTime(2);
         }
-        //if (stateMachineManager._currentState is EmptyState)
-        //{
-        //    Debug.Log("Empty state clicked!");
-        //    stateMachineManager.SwitchState(stateMachineManager.GrowingStateInstance);
-        //}
-        //else if (stateMachineManager._currentState is GrowingState)
-        //{
-        //    Debug.Log("Growing state clicked!");
-        //    stateMachineManager.SwitchState(stateMachineManager.HarvestStateInstance);
-        //}
-        //else if (stateMachineManager._currentState is HarvestState)
-        //{
-        //    Debug.Log("Harvest state clicked!");
-        //    stateMachineManager.SwitchState(stateMachineManager.EmptyStateInstance);
-        //}
+        else if (farmPlotState._currentState is GrowingState)
+        {
+            Debug.Log("Growing state clicked!");
+            farmPlotState.SwitchState(farmPlotState.HarvestStateInstance);
+            Harvest();
+        }
+        else if (farmPlotState._currentState is HarvestState)
+        {
+            Debug.Log("Harvest state clicked!");
+            farmPlotState.SwitchState(farmPlotState.EmptyStateInstance);
+        }
+        Debug.Log(farmPlotState.GetInstanceID());
+    }
+
+    private void Plant(SeedData seed, Tile tile)
+    {
+        Debug.Log($"Planting {seed.name}");
+        // You can add more logic to handle the planting process
+        tile.StartGrowing(seed);
+    }
+    private void Harvest()
+    {
+        currentTile.Harvest(playerInventory);
     }
 
     private void OnDisable()

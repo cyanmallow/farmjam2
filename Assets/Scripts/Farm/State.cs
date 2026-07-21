@@ -2,14 +2,14 @@ using UnityEngine;
 
 public abstract class State
 {
-    public abstract void EnterState();
-    public abstract void UpdateState();
-    public abstract void ExitState();
+    public abstract void OnEnter();
+    public abstract void OnUpdate();
+    public abstract void OnExit();
 
-    protected StateMachineManager stateMachineManager;
+    protected FarmPlotState farmPlotState;
 
-    public State(StateMachineManager manager)
+    public State(FarmPlotState state)
     {
-        stateMachineManager = manager;
+        farmPlotState = state;
     }
 }
