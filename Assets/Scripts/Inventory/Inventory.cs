@@ -8,8 +8,11 @@ public class Inventory : MonoBehaviour
     public int slotCount = 20;
     public List<InventorySlot> slots;
     public event Action OnInventoryChanged;
+    public static Inventory Instance { get; private set; }
+
     void Awake()
     {
+        Instance = this;
         slots = new List<InventorySlot>();
         for (int i = 0; i < slotCount; i++)
         {

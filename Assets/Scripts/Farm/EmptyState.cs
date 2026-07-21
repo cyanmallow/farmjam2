@@ -3,6 +3,7 @@ using UnityEngine.UIElements;
 
 public class EmptyState : State
 {
+
     public EmptyState(FarmPlotState farmPlotState) : base(farmPlotState)
     {
     }

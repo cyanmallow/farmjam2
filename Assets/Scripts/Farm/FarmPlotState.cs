@@ -23,18 +23,24 @@ public class FarmPlotState : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SwitchState(EmptyStateInstance);
+        SwitchState(notClearedStateInstance);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //_currentState?.OnUpdate();
+        _currentState?.OnUpdate();
     }
     public void SwitchState(State newState)
     {
         _currentState?.OnExit();
         _currentState = newState;
         _currentState.OnEnter();
+    }
+
+    public State GetCurrentFieldState()
+    {
+        Debug.Log($"Current state: {_currentState.GetType().Name}");
+        return _currentState;
     }
 }

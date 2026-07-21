@@ -3,12 +3,18 @@ using UnityEngine;
 [ExecuteAlways]
 public class LightingManager : MonoBehaviour
 {
+    public static LightingManager Instance { get; private set; }
+
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPresets Preset;
 
     //variables for material properties
     [SerializeField, Range(0, 24)] public float TimeOfDay;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {

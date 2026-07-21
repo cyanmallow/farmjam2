@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Inventory/UI.uss?fileID=7433441132597879392&amp;guid=2dd5e6eb7ec12d246b9783af1ab84d05&amp;type=3#UI" />
+    <ui:VisualElement name="MainPanel" style="flex-grow: 0; width: auto; height: auto; -unity-text-align: middle-center; white-space: nowrap; align-self: center; justify-content: center; align-items: center; align-content: center; position: relative; top: 0; left: 0;">
+        <ui:Button text="Plant" name="PlantButton" style="width: 50px; font-size: 12px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; height: 10px; position: relative;" />
+        <ui:Button text="Water" name="WaterButton" style="width: 50px; white-space: nowrap; font-size: 12px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; height: 10px; position: relative;" />
+        <ui:Button text="Harvest" name="HarvestButton" style="width: 50px; font-size: 12px; padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px; height: 10px; position: relative;" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,7 +1,0 @@
-<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/Inventory/UI.uss?fileID=7433441132597879392&amp;guid=2dd5e6eb7ec12d246b9783af1ab84d05&amp;type=3#UI" />
-    <ui:TabView style="height: 190px; width: 352px;" />
-    <ui:Tab label="Products" />
-    <ui:Tab label="Seeds" />
-    <ui:Tab label="Other" />
-</ui:UXML>

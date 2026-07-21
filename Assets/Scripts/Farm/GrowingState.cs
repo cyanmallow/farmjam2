@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class GrowingState : State
 {
-    [SerializeField]
-    private Renderer renderer;
+    [SerializeField] private Renderer renderer;
     public GrowingState(FarmPlotState farmPlotState) : base(farmPlotState)
     {
     }
