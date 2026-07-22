@@ -3,9 +3,7 @@ using UnityEngine.UIElements;
 
 public class HarvestState : State
 {
-    public HarvestState(FarmPlotState farmPlotState) : base(farmPlotState)
-    {
-    }
+    public HarvestState(FarmPlotState farmPlotState) : base(farmPlotState)    {    }
     public override void OnEnter()
     {
         // Implementation for entering the harvest state
@@ -20,5 +18,11 @@ public class HarvestState : State
     {
         // Implementation for exiting the harvest state
         Debug.Log("Exiting Harvest State");
+    }
+    public override void Harvest()
+    {
+        farmPlotState.tile.Harvest();
+        DayMonthManager.Instance.AddTime(2);
+        farmPlotState.SwitchState(farmPlotState.EmptyStateInstance);
     }
 }

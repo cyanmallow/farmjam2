@@ -12,4 +12,21 @@ public abstract class State
     {
         farmPlotState = state;
     }
+
+    // no default
+    public virtual void Plant(SeedData seed)
+    {
+        Debug.LogWarning("Plant action is not valid in the current state.");
+    }
+    public virtual void Water()
+    {
+        Debug.LogWarning("Water action is not valid in the current state.");
+    }
+    public virtual void Harvest()
+    {
+        Debug.LogWarning("Harvest action is not valid in the current state.");
+    }
+    public virtual void AdvanceGrowth()
+    {
+    }
 }

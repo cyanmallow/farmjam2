@@ -6,7 +6,7 @@ public class Tile : MonoBehaviour
 {
     private SeedData plantedSeed;
     private float growthTime;
-    private bool isFullyGrown;
+    private bool IsFullyGrown { get; set; }
     private float witherTime;
     private bool isWatered;
 
@@ -15,7 +15,6 @@ public class Tile : MonoBehaviour
     {
         plantedSeed = seed;
         growthTime = seed.growthTime;
-        isFullyGrown = false;
         witherTime = 0f;
         Debug.Log($"Started growing {seed.name} with growth time of {growthTime} seconds.");
         AdvanceGrowth();
@@ -24,7 +23,7 @@ public class Tile : MonoBehaviour
     public void Water()
     {
         // if current state = growing state
-        if (plantedSeed != null && !isFullyGrown)
+        if (plantedSeed != null && !IsFullyGrown)
         {
             isWatered = true;
             DayMonthManager.Instance.AddTime(2);
@@ -33,14 +32,12 @@ public class Tile : MonoBehaviour
 
     public void Harvest()
     {
-        if (isFullyGrown)
+        if (IsFullyGrown)
         {
             Inventory.Instance.AddItem(plantedSeed.cropProduct, Random.Range(plantedSeed.minYield, plantedSeed.maxYield));
             Debug.Log($"Harvested the crop and added {plantedSeed.cropProduct} to the inventory.");
             Debug.Log("Now inventory: " + Inventory.Instance.GetItemCount(plantedSeed.cropProduct) + " " + plantedSeed.cropProduct);
             plantedSeed = null;
-
-
         }
         else
         {
@@ -50,7 +47,7 @@ public class Tile : MonoBehaviour
 
     public void Wither()
     {
-        if (plantedSeed != null && !isFullyGrown)
+        if (plantedSeed != null && !IsFullyGrown)
         {
             Inventory.Instance.AddItem(plantedSeed, Random.Range(plantedSeed.minSeedYield, plantedSeed.maxSeedYield));
             plantedSeed = null;
@@ -61,16 +58,14 @@ public class Tile : MonoBehaviour
         }
     }
 
-
     //start countdown for growth time and wither time
     // new day growthTime -= 1f;
-
     public void AdvanceGrowth()
     {
         growthTime -= 1f;
         if (growthTime <= 0f)
         {
-            isFullyGrown = true;
+            IsFullyGrown = true;
             witherTime = plantedSeed.witherTime;
             Debug.Log($"The plant has fully grown. It will wither in {witherTime} days.");
 
@@ -79,12 +74,12 @@ public class Tile : MonoBehaviour
     }
     private void StartWitherCountdown()
     {
-        if (isFullyGrown)
+        if (IsFullyGrown)
         {
             growthTime -= 1f;
             if (growthTime <= 0f)
             {
-                isFullyGrown = false;
+                IsFullyGrown = false;
                 witherTime = plantedSeed.witherTime;
                 Debug.Log($"The plant has fully grown. It will wither in {witherTime} days.");
             }
