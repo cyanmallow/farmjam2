@@ -26,7 +26,7 @@ public abstract class State
     {
         Debug.LogWarning("Harvest action is not valid in the current state.");
     }
-    public virtual void AdvanceGrowth()
+    public virtual void GrowUp()
     {
     }
 }

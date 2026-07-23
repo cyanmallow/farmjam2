@@ -6,6 +6,7 @@ public class SeedData : ItemData
     [Header("Growth")]
     public float growthTime;
     public float witherTime;
+    public int resilient;
 
     [Header("Stages")]
     public Sprite[] stageSprites;

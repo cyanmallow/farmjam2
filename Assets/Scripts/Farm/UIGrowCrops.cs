@@ -4,24 +4,20 @@ using UnityEngine.UIElements;
 
 public class UIGrowCrops : MonoBehaviour
 {
-    public Button plantButton;
-    public Button waterButton;
-    public Button harvestButton;
+    private Button plantButton;
+    private Button waterButton;
+    private Button harvestButton;
 
-    public FarmPlotState farmPlotState;
+    private Label plantDescriptionText;
+    private Label waterDescriptionText;
+    private Label harvestDescriptionText;
 
     private VisualElement panel;
     [SerializeField] private UIDocument document;
-    private IField ifield;
 
-    // make ui appear on field
-    [SerializeField] private Camera cam;
-    [SerializeField] private Vector3 worldOffset = new Vector3(0, 1f, 0);
+    private IField currentField;
+    private FarmPlotState currentFarmPlotState;
 
-    private void Awake()
-    {
-        ifield = GetComponentInParent<IField>();
-    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,81 +32,110 @@ public class UIGrowCrops : MonoBehaviour
 
         panel = document.rootVisualElement.Q<VisualElement>("MainPanel");
 
+        // add description text to the panel
+        plantDescriptionText = document.rootVisualElement.Q<Label>("PlantDescription");
+        waterDescriptionText = document.rootVisualElement.Q<Label>("WaterDescription");
+        harvestDescriptionText = document.rootVisualElement.Q<Label>("HarvestDescription");
+
         // Hide the panel initially
         HidePanel();
     }
     private void OnPlantClicked()
     {
         // another ui to choose seed to plant, then call the Plant method in IField
-        //    Plant(testRadish, currentTile);
-        ifield.Plant();
+        currentField?.Plant();
         HidePanel();
     }
     private void OnWaterClicked()
     {
-        ifield.Water();
+        currentField?.Water();
         HidePanel();
     }
     private void OnHarvestClicked()
     {
-        ifield.Harvest();
+        currentField?.Harvest();
         HidePanel();
     }
-    public void ShowPanel(Transform tileTransform)
+    public void ShowPanel(IField field)
     {
+        if (currentFarmPlotState != null) 
+        { 
+            currentFarmPlotState.OnStateChanged -= UpdateButtonStates;
+        }
+        currentField = field;
+        currentFarmPlotState = field.farmPlotState;
+        currentFarmPlotState.OnStateChanged += UpdateButtonStates;
+
+        //sync button states with current state of the field
+        UpdateButtonStates(currentFarmPlotState.CurrentState);
         panel.style.visibility = Visibility.Visible;
-        Debug.Log("Panel shown!");
-        Vector2 panelPos = RuntimePanelUtils.CameraTransformWorldToPanel(
-            document.rootVisualElement.panel,
-            tileTransform.position + worldOffset,
-            cam
-        );
-
-        panel.style.left = panelPos.x - 25;
-        panel.style.top = panelPos.y - 10;
-
     }
     public void HidePanel()
     {
+        if (currentFarmPlotState != null)
+        {
+            currentFarmPlotState.OnStateChanged -= UpdateButtonStates;
+            currentFarmPlotState = null;
+        }
+        currentField = null;
+        currentFarmPlotState = null;
         panel.style.visibility = Visibility.Hidden;
-        Debug.Log("Panel hidden!");
     }
-
-    // update state of buttons based on current state of the field
-    void OnEnable()
-    {
-        farmPlotState.OnStateChanged += UpdateButtonStates;
-    }
-    void OnDisable()
-    {
-        farmPlotState.OnStateChanged -= UpdateButtonStates;
-    }
-
     void UpdateButtonStates(State currentState)
     {
-        if (currentState == farmPlotState.EmptyStateInstance)
+        if (currentState == currentFarmPlotState.EmptyStateInstance)
         {
             plantButton.SetEnabled(true);
             waterButton.SetEnabled(false);
             harvestButton.SetEnabled(false);
+            plantDescriptionText.text = "(1:00)";
+            waterDescriptionText.text = "";
+            harvestDescriptionText.text = "";
         }
-        else if (currentState == farmPlotState.GrowingStateInstance)
+        else if (currentState == currentFarmPlotState.GrowingStateInstance)
         {
             plantButton.SetEnabled(false);
             waterButton.SetEnabled(true);
             harvestButton.SetEnabled(true);
+            plantDescriptionText.text = "";
+            waterDescriptionText.text = "(1:00)";
+            harvestDescriptionText.text = "(1:00)";
         }
-        else if (currentState == farmPlotState.HarvestStateInstance)
+        else if (currentState == currentFarmPlotState.HarvestStateInstance)
         {
             plantButton.SetEnabled(false);
             waterButton.SetEnabled(true);
             harvestButton.SetEnabled(true);
+            plantDescriptionText.text = "";
+            waterDescriptionText.text = "(1:00)";
+            harvestDescriptionText.text = "(1:00) ++Product";
+        }
+        else if (currentState == currentFarmPlotState.WitheringStateInstance)
+        {
+            plantButton.SetEnabled(false);
+            waterButton.SetEnabled(true);
+            harvestButton.SetEnabled(true);
+            plantDescriptionText.text = "";
+            waterDescriptionText.text = "(1:00)";
+            harvestDescriptionText.text = "(1:00) +Product +Seed";
+        }
+        else if (currentState == currentFarmPlotState.DeadStateInstance)
+        {
+            plantButton.SetEnabled(false);
+            waterButton.SetEnabled(false);
+            harvestButton.SetEnabled(true);
+            plantDescriptionText.text = "";
+            waterDescriptionText.text = "";
+            harvestDescriptionText.text = "(1:00) ++Seed";
         }
         else
         {
             plantButton.SetEnabled(false);
             waterButton.SetEnabled(false);
             harvestButton.SetEnabled(false);
+            plantDescriptionText.text = "Unknown state.";
+            waterDescriptionText.text = "Unknown state.";
+            harvestDescriptionText.text = "Unknown state.";
         }
     }
 }

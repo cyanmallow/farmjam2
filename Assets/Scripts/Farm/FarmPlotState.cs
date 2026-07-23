@@ -9,6 +9,7 @@ public class FarmPlotState : MonoBehaviour
     public EmptyState EmptyStateInstance { get; private set; }
     public GrowingState GrowingStateInstance { get; private set; }
     public HarvestState HarvestStateInstance { get; private set; }
+    public WitheringState WitheringStateInstance { get; private set; }
     public DeadState DeadStateInstance { get; private set; }
 
     public State CurrentState { get; private set; }
@@ -21,6 +22,7 @@ public class FarmPlotState : MonoBehaviour
         EmptyStateInstance = new EmptyState(this);
         GrowingStateInstance = new GrowingState(this);
         HarvestStateInstance = new HarvestState(this);
+        WitheringStateInstance = new WitheringState(this);
         DeadStateInstance = new DeadState(this);
 
         tile = GetComponent<Tile>();

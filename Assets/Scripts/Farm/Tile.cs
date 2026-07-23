@@ -6,31 +6,20 @@ public class Tile : MonoBehaviour
 {
     private SeedData plantedSeed;
     private float growthTime;
-    private bool IsFullyGrown { get; set; }
+    public bool IsFullyGrown { get; set; }
     private float witherTime;
-    private bool isWatered;
-
+    public int deadPoint;
 
     public void StartGrowing(SeedData seed)
     {
         plantedSeed = seed;
         growthTime = seed.growthTime;
         witherTime = 0f;
-        Debug.Log($"Started growing {seed.name} with growth time of {growthTime} seconds.");
-        AdvanceGrowth();
+        deadPoint = seed.resilient;
+        Debug.Log($"Started growing {seed.name} with growth time of {growthTime} days.");
     }
 
-    public void Water()
-    {
-        // if current state = growing state
-        if (plantedSeed != null && !IsFullyGrown)
-        {
-            isWatered = true;
-            DayMonthManager.Instance.AddTime(2);
-        }
-    }
-
-    public void Harvest()
+    public void HarvestWhilePlantNotDead()
     {
         if (IsFullyGrown)
         {
@@ -42,6 +31,30 @@ public class Tile : MonoBehaviour
         else
         {
             Debug.LogWarning("Cannot harvest. The plant is not fully grown.");
+        }
+    }
+    public void HarvestWhilePlantDying()
+    {
+        if (IsFullyGrown)
+        {
+            Inventory.Instance.AddItem(plantedSeed.cropProduct, Random.Range(plantedSeed.minYield, plantedSeed.maxYield)/2);
+            Inventory.Instance.AddItem(plantedSeed, Random.Range(plantedSeed.minSeedYield, plantedSeed.maxSeedYield)/2);
+            Debug.Log("Now inventory: " + Inventory.Instance.GetItemCount(plantedSeed.cropProduct) + " " + plantedSeed.cropProduct + " and " + Inventory.Instance.GetItemCount(plantedSeed) + " " + plantedSeed);
+            plantedSeed = null;
+        }
+        else
+        {
+            Debug.LogWarning("Cannot harvest. The plant is not fully grown.");
+        }
+    }
+    public void HarvestWhilePlantAlreadyDead()
+    {
+        if (plantedSeed != null)
+        {
+            Inventory.Instance.AddItem(plantedSeed, Random.Range(plantedSeed.minSeedYield, plantedSeed.maxSeedYield));
+            Debug.Log($"Harvested the dead crop and added {plantedSeed} to the inventory.");
+            Debug.Log("Now inventory: " + Inventory.Instance.GetItemCount(plantedSeed) + " " + plantedSeed);
+            plantedSeed = null;
         }
     }
 
@@ -58,7 +71,6 @@ public class Tile : MonoBehaviour
         }
     }
 
-    //start countdown for growth time and wither time
     // new day growthTime -= 1f;
     public void AdvanceGrowth()
     {
@@ -68,9 +80,21 @@ public class Tile : MonoBehaviour
             IsFullyGrown = true;
             witherTime = plantedSeed.witherTime;
             Debug.Log($"The plant has fully grown. It will wither in {witherTime} days.");
-
         }
+        else
+        {
+            Debug.Log($"The plant is still growing. {growthTime} days left until fully grown.");
+        }
+    }
 
+    public bool CheckIfPlantIsDead()
+    {
+        if (deadPoint <= 0)
+        {
+            Debug.LogWarning("The plant has died.");
+            return true;
+        }
+        return false;
     }
     private void StartWitherCountdown()
     {

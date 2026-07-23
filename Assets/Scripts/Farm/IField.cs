@@ -9,17 +9,13 @@ public class IField : MonoBehaviour, IInteractable
 
     private void Awake()
     {
-        if (farmPlotState == null)
-        {
-            farmPlotState = GetComponent<FarmPlotState>();
-        }
+        farmPlotState = GetComponent<FarmPlotState>();
         uIGrowCrops = FindFirstObjectByType<UIGrowCrops>();
     }
     public void OnClickAction()
     {
-        uIGrowCrops.ShowPanel(farmPlotState.transform);
+        uIGrowCrops.ShowPanel(this);
         PlayerMovement.Instance.WalkTo(farmPlotState.transform);
-        Debug.Log(farmPlotState.GetInstanceID());
     }
     public void Plant()
     {
@@ -35,6 +31,6 @@ public class IField : MonoBehaviour, IInteractable
     }
     public void AdvanceGrowth()
     {
-        farmPlotState.CurrentState.AdvanceGrowth();
+        farmPlotState.CurrentState.GrowUp();
     }
 }

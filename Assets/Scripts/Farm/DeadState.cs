@@ -21,4 +21,12 @@ public class DeadState : State
         // Implementation for exiting the dead state
         Debug.Log("Exiting Dead State");
     }
+    public override void Harvest()
+    {
+        farmPlotState.tile.HarvestWhilePlantAlreadyDead();
+        DayMonthManager.Instance.AddTime(2);
+        farmPlotState.SwitchState(farmPlotState.EmptyStateInstance);
+        StatManager.Instance.AddStat("fatigue", 10);
+
+    }
 }

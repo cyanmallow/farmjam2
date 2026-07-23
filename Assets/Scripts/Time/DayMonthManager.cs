@@ -1,20 +1,15 @@
 using System;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+
 
 public class DayMonthManager : MonoBehaviour
 {
     public static DayMonthManager Instance { get; private set; }
 
     public int currentDay = 1;
-
-    // display day on UI
-    public TextMeshProUGUI dateUI;
-    public TextMeshProUGUI timeUI;
+    public float currentTime;
     private float lastTimeOfDay;
+    public string currentTimeUI;
 
     public static event Action OnNewDay;
 
@@ -25,32 +20,27 @@ public class DayMonthManager : MonoBehaviour
 
     void Start()
     {
-        dateUI.text = "Day " + currentDay.ToString();
         lastTimeOfDay = LightingManager.Instance.TimeOfDay;
     }
 
     void Update()
     {
-        float currentTimeOfDay = LightingManager.Instance.TimeOfDay;
-
-        if (currentTimeOfDay < lastTimeOfDay)
+        float time = LightingManager.Instance.TimeOfDay;
+        if (time < lastTimeOfDay)
         {
             NewDay();
         }
-        lastTimeOfDay = currentTimeOfDay;
+        lastTimeOfDay = time;
 
-        int hour = Mathf.FloorToInt(LightingManager.Instance.TimeOfDay);
-        int minute = Mathf.FloorToInt((LightingManager.Instance.TimeOfDay - hour) * 60f);
-        timeUI.text = $"{hour:00}:{minute:00}";
+        int hour = Mathf.FloorToInt(time);
+        int minute = Mathf.FloorToInt((time - hour) * 60f);
+        currentTimeUI = $"{hour:00}:{minute:00}";
     }
 
     private void NewDay()
     {
         currentDay++;
-        ScreenFader.Instance.FadeFromBlack();
-        LightingManager.Instance.TimeOfDay = 5f;
-        //newDayUI.SetActive(true);
-        dateUI.text = "Day " + currentDay.ToString();
+        //ScreenFader.Instance.FadeFromBlack();
         Debug.Log("New Day: " + currentDay);
         OnNewDay?.Invoke();
     }

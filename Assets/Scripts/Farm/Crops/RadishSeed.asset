@@ -19,6 +19,7 @@ MonoBehaviour:
   maxStackSize: 99
   growthTime: 5
   witherTime: 4
+  resilient: 5
   stageSprites: []
   cropProduct: {fileID: 11400000, guid: 7f5fe9a2b4266b34584d4df4c2d61de3, type: 2}
   minYield: 2

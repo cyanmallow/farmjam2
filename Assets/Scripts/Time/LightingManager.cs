@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -18,22 +19,11 @@ public class LightingManager : MonoBehaviour
 
     private void Update()
     {
-        if (Preset == null)
+        if (TimeOfDay >= 24f)
         {
-            Debug.Log("No lighting preset assigned.");
-            return;
+            TimeOfDay -= 24f; // wrap, don't just clamp/reset to 0 — preserves overflow (e.g. 24.3 -> 0.3)
         }
-
-        if (Application.isPlaying)
-        {
-            TimeOfDay += Time.deltaTime / 240f;
-            TimeOfDay %= 24; // Wrap around after 24 hours
-            UpdateLighting(TimeOfDay / 24f);
-        }
-        else
-        {
-            UpdateLighting(TimeOfDay / 24f);
-        }
+        UpdateLighting(TimeOfDay / 24f);
     }
     private void UpdateLighting(float timePercent)
     {

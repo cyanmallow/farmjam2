@@ -1,0 +1,45 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement style="flex-grow: 0; width: 30%; height: 100%; flex-shrink: 0;">
+            <ui:VisualElement name="DateAndTimeLabel" style="flex-grow: 0; flex-direction: row; height: 15%; width: 100%;">
+                <ui:Label text="DayLabel" name="DayLabel" style="font-size: 12px; width: 50%; margin-top: 4px; margin-right: 8px; margin-bottom: 4px; margin-left: 2px;" />
+                <ui:Label text="TimeLabel" name="TimeLabel" style="font-size: 12px; width: 50%; margin-top: 4px; margin-right: 8px; margin-bottom: 4px; margin-left: 2px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="hunger-bar-container" style="flex-grow: 0; background-size: cover; width: 100%; height: 15%;">
+                <ui:VisualElement name="hunger-bar-frame" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; top: 0; left: 0; height: 25px; width: 100%; margin-top: 4px; margin-right: 8px; margin-bottom: 4px; margin-left: 2px;">
+                    <ui:VisualElement name="hunger-bar-background" style="flex-grow: 1; right: 0; bottom: auto; top: 0; width: 100%; align-items: stretch; align-self: flex-start; justify-content: flex-start;">
+                        <ui:Label text="Hunger" name="hunger-label" style="font-size: 12px; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+                        <ui:VisualElement name="hunger-bar-fill" style="flex-grow: 1; background-color: rgb(65, 222, 105); height: 2px; width: 100%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="fatigue-bar-container" style="flex-grow: 0; background-size: cover; width: 100%; height: 15%;">
+                <ui:VisualElement name="fatigue-bar-frame" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; top: 0; left: 0; height: 25px; width: 100%; margin-top: 4px; margin-right: 8px; margin-bottom: 4px; margin-left: 2px;">
+                    <ui:VisualElement name="fatigue-bar-background" style="flex-grow: 1; right: 0; bottom: auto; top: 0; width: 100%; align-items: stretch; align-self: flex-start; justify-content: flex-start;">
+                        <ui:Label text="Fatigue" name="fatigue-label" style="font-size: 12px; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+                        <ui:VisualElement name="fatigue-bar-fill" style="flex-grow: 1; background-color: rgb(65, 222, 105); height: 2px; width: 100%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="pain-bar-container" style="flex-grow: 0; background-size: cover; width: 100%; height: 15%;">
+                <ui:VisualElement name="pain-bar-frame" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; top: 0; left: 0; height: 25px; width: 100%; margin-top: 4px; margin-right: 8px; margin-bottom: 4px; margin-left: 2px;">
+                    <ui:VisualElement name="pain-bar-background" style="flex-grow: 1; right: 0; bottom: auto; top: 0; width: 100%; align-items: stretch; align-self: flex-start; justify-content: flex-start;">
+                        <ui:Label text="Pain" name="pain-label" style="font-size: 12px; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+                        <ui:VisualElement name="pain-bar-fill" style="flex-grow: 1; background-color: rgb(65, 222, 105); height: 2px; width: 100%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="sanity-bar-container" style="flex-grow: 0; background-size: cover; width: 100%; height: 15%;">
+                <ui:VisualElement name="sanity-bar-frame" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); position: absolute; top: 0; left: 0; height: 25px; width: 100%; margin-top: 4px; margin-right: 8px; margin-bottom: 4px; margin-left: 2px;">
+                    <ui:VisualElement name="sanity-bar-background" style="flex-grow: 1; right: 0; bottom: auto; top: 0; width: 100%; align-items: stretch; align-self: flex-start; justify-content: flex-start;">
+                        <ui:Label text="Sanity" name="sanity-label" enable-rich-text="true" style="font-size: 12px; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;" />
+                        <ui:VisualElement name="sanity-bar-fill" style="flex-grow: 1; background-color: rgb(65, 222, 105); height: 2px; width: 100%;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-grow: 0; width: 60%; height: 100%; flex-shrink: 0; align-self: flex-end;">
+            <ui:ScrollView style="width: 100%; height: 100%; align-self: flex-end; flex-shrink: 0; align-items: auto; -unity-text-align: upper-left; flex-direction: column; flex-grow: 0;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
