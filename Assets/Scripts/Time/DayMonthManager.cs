@@ -1,13 +1,11 @@
 using System;
 using UnityEngine;
 
-
 public class DayMonthManager : MonoBehaviour
 {
     public static DayMonthManager Instance { get; private set; }
 
     public int currentDay = 1;
-    public float currentTime;
     private float lastTimeOfDay;
     public string currentTimeUI;
 
@@ -22,32 +20,36 @@ public class DayMonthManager : MonoBehaviour
     {
         lastTimeOfDay = LightingManager.Instance.TimeOfDay;
     }
-
-    void Update()
+    public void AddTime(float hoursToAdd)
+    {
+        LightingManager.Instance.TimeOfDay = (LightingManager.Instance.TimeOfDay + hoursToAdd) % 24f;
+        ChangeToNewDayCheck();
+    }
+    public void ChangeToNewDayCheck()
     {
         float time = LightingManager.Instance.TimeOfDay;
         if (time < lastTimeOfDay)
         {
             NewDay();
         }
+        else
+        {
+            UpdateTimeUI();
+        }
         lastTimeOfDay = time;
-
-        int hour = Mathf.FloorToInt(time);
-        int minute = Mathf.FloorToInt((time - hour) * 60f);
-        currentTimeUI = $"{hour:00}:{minute:00}";
     }
-
     private void NewDay()
     {
         currentDay++;
         //ScreenFader.Instance.FadeFromBlack();
         Debug.Log("New Day: " + currentDay);
         OnNewDay?.Invoke();
+        UpdateTimeUI();
     }
-
-    public void AddTime(float timeToAdd)
+    public void UpdateTimeUI()
     {
-        LightingManager.Instance.TimeOfDay += timeToAdd;
+        int hour = Mathf.FloorToInt(LightingManager.Instance.TimeOfDay);
+        int minute = Mathf.FloorToInt((LightingManager.Instance.TimeOfDay - hour) * 60f);
+        currentTimeUI = $"{hour:00}:{minute:00}";
     }
-
 }

@@ -15,7 +15,6 @@ public class EmptyState : State
         DayMonthManager.Instance.AddTime(2);
         farmPlotState.SwitchState(farmPlotState.GrowingStateInstance);
         StatManager.Instance.AddStat("fatigue", 10);
-
     }
     public override void OnExit()
     {

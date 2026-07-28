@@ -9,9 +9,9 @@ public class StatManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        stats["hunger"] = new Stat { statId = "hunger", currentValue = 0, maxValue = 100, decayOrIncreasePerHour = 5f };
-        stats["fatigue"] = new Stat { statId = "fatigue", currentValue = 0, maxValue = 100, decayOrIncreasePerHour = 2f };
-        stats["pain"] = new Stat { statId = "pain", currentValue = 0, maxValue = 100, decayOrIncreasePerHour = -5f };
+        stats["hunger"] = new Stat { statId = "hunger", currentValue = 0, maxValue = 130, decayOrIncreasePerHour = 5f };
+        stats["fatigue"] = new Stat { statId = "fatigue", currentValue = 0, maxValue = 130, decayOrIncreasePerHour = 2f };
+        stats["pain"] = new Stat { statId = "pain", currentValue = 0, maxValue = 130, decayOrIncreasePerHour = -5f };
         stats["sanity"] = new Stat { statId = "sanity", currentValue = 100, maxValue = 100, decayOrIncreasePerHour = 0f };
     }
 
@@ -47,27 +47,30 @@ public class StatManager : MonoBehaviour
             Debug.LogWarning($"Stat with ID '{id}' does not exist.");
         }
     }
-    public void CompareStat(string id, float amount)
+    public bool CompareStat(string id, float amount)
     {
         if (stats.ContainsKey(id))
         {
             float currentValue = stats[id].currentValue;
-            if (currentValue < amount)
-            {
-                Debug.Log($"Stat '{id}' is less than {amount}. Current value: {currentValue}");
-            }
-            else if (currentValue > amount)
+            if (currentValue > amount)
             {
                 Debug.Log($"Stat '{id}' is greater than {amount}. Current value: {currentValue}");
+                return true;
             }
-            else
+            else 
             {
-                Debug.Log($"Stat '{id}' is equal to {amount}. Current value: {currentValue}");
+                Debug.Log($"Stat '{id}' is less or equal than {amount}. Current value: {currentValue}");
+                return false;
             }
         }
         else
         {
             Debug.LogWarning($"Stat with ID '{id}' does not exist.");
+            return false;
         }
     }
+
+
+
+
 }
