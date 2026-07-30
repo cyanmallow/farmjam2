@@ -5,7 +5,6 @@ public class StatManager : MonoBehaviour
 {
     public static StatManager Instance { get; private set; }
     public Dictionary<string, Stat> stats = new();
-
     void Awake()
     {
         Instance = this;
@@ -69,8 +68,4 @@ public class StatManager : MonoBehaviour
             return false;
         }
     }
-
-
-
-
 }

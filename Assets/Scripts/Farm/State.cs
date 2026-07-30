@@ -14,6 +14,10 @@ public abstract class State
     }
 
     // no default
+    public virtual void Clear()
+    {
+        Debug.LogWarning("Clear action is not valid in the current state.");
+    }
     public virtual void Plant(SeedData seed)
     {
         Debug.LogWarning("Plant action is not valid in the current state.");

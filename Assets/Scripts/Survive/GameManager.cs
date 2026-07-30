@@ -1,14 +1,8 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public static class GameManager 
 {
-    public static GameManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-    public void GameOver()
+    public static void GameOver()
     {
         Debug.Log("Youre dead");
     }

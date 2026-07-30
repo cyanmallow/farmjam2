@@ -23,4 +23,8 @@ public class NotClearedState : State
         Debug.Log("Exiting Not Cleared State");
 
     }
+    public override void Clear()
+    {
+        timesLeftToClear -= 1;
+    }
 }
