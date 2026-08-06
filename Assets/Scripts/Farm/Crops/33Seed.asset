@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14184e6bd431144c8c2a736082914c0, type: 3}
+  m_Name: 33Seed
+  m_EditorClassIdentifier: Assembly-CSharp::SeedData
+  itemName: 33 Seed
+  itemType: 1
+  itemIcon: {fileID: 0}
+  itemDescription: 
+  maxStackSize: 99
+  seedName: 
+  seedIcon: {fileID: 0}
+  growthTime: 3
+  witherTime: 3
+  resilient: 3
+  stageSprites: []
+  cropProduct: {fileID: 11400000, guid: c8ace77912f5149469e340117bca0913, type: 2}
+  minYield: 3
+  maxYield: 3
+  minSeedYield: 3
+  maxSeedYield: 3

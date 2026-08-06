@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,37 +15,44 @@ public class UIGrowCrops : MonoBehaviour
 
     private VisualElement panel;
     [SerializeField] private UIDocument document;
+    [SerializeField] private UIDocument chooseSeedDocument;
 
     private IField currentField;
     private FarmPlotState currentFarmPlotState;
 
+    private VisualElement seedSelectionPanel;
+    private VisualElement seedButtonContainer;
+
+    [SerializeField] private List<SeedData> allSeeds;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        panel = document.rootVisualElement.Q<VisualElement>("MainPanel");
         plantButton = document.rootVisualElement.Q<Button>("PlantButton");
         plantButton.clicked += OnPlantClicked;
-
         waterButton = document.rootVisualElement.Q<Button>("WaterButton");
         waterButton.clicked += OnWaterClicked;
-
         harvestButton = document.rootVisualElement.Q<Button>("HarvestButton");
         harvestButton.clicked += OnHarvestClicked;
-
-        panel = document.rootVisualElement.Q<VisualElement>("MainPanel");
-
         // add description text to the panel
         plantDescriptionText = document.rootVisualElement.Q<Label>("PlantDescription");
         waterDescriptionText = document.rootVisualElement.Q<Label>("WaterDescription");
         harvestDescriptionText = document.rootVisualElement.Q<Label>("HarvestDescription");
 
-        // Hide the panel initially
+        // Initialize the seed selection panel and button container
+        seedSelectionPanel = chooseSeedDocument.rootVisualElement.Q<VisualElement>("SeedSelectionPanel");
+        seedButtonContainer = chooseSeedDocument.rootVisualElement.Q<VisualElement>("SeedButtonContainer");
+
+        PopulateSeedButtons();
         HidePanel();
     }
     private void OnPlantClicked()
     {
         // another ui to choose seed to plant, then call the Plant method in IField
-        currentField?.Plant();
-        HidePanel();
+        //panel.style.visibility = Visibility.Hidden;
+        seedSelectionPanel.style.visibility = Visibility.Visible;
+
     }
     private void OnWaterClicked()
     {
@@ -70,6 +78,28 @@ public class UIGrowCrops : MonoBehaviour
         UpdateButtonStates(currentFarmPlotState.CurrentState);
         panel.style.visibility = Visibility.Visible;
     }
+    private void PopulateSeedButtons()
+    {         
+        // Clear existing buttons
+        seedButtonContainer.Clear();
+        // Get the list of seeds from the SeedManager
+        foreach (var seed in allSeeds)
+        {
+            // Create a new button for each seed
+            var seedButton = new Button(() => OnSeedSelected(seed))
+            {
+                text = seed.seedName
+            };
+            seedButton.AddToClassList("seed-button"); // Add a class for styling if needed
+            // Add the button to the container
+            seedButtonContainer.Add(seedButton);
+        }
+    }
+    private void OnSeedSelected(SeedData seed)
+    {
+        currentField?.Plant(seed);
+        HidePanel();
+    }
     public void HidePanel()
     {
         if (currentFarmPlotState != null)
@@ -80,6 +110,7 @@ public class UIGrowCrops : MonoBehaviour
         currentField = null;
         currentFarmPlotState = null;
         panel.style.visibility = Visibility.Hidden;
+        seedSelectionPanel.style.visibility = Visibility.Hidden;
     }
     void UpdateButtonStates(State currentState)
     {

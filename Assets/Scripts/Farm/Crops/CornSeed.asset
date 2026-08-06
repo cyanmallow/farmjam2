@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14184e6bd431144c8c2a736082914c0, type: 3}
+  m_Name: CornSeed
+  m_EditorClassIdentifier: Assembly-CSharp::SeedData
+  itemName: Corn Seed
+  itemType: 1
+  itemIcon: {fileID: 0}
+  itemDescription: 
+  maxStackSize: 99
+  seedName: 
+  seedIcon: {fileID: 0}
+  growthTime: 10
+  witherTime: 6
+  resilient: 5
+  stageSprites: []
+  cropProduct: {fileID: 11400000, guid: c8c91c0565a04a44abde09e771ed42a8, type: 2}
+  minYield: 3
+  maxYield: 5
+  minSeedYield: 3
+  maxSeedYield: 10

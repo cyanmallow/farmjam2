@@ -4,7 +4,6 @@ using UnityEngine;
 public class IField : MonoBehaviour, IInteractable
 {
     public FarmPlotState farmPlotState;
-    public SeedData testRadish;
     private UIGrowCrops uIGrowCrops;
 
     private void Awake()
@@ -17,9 +16,9 @@ public class IField : MonoBehaviour, IInteractable
         uIGrowCrops.ShowPanel(this);
         PlayerMovement.Instance.WalkTo(farmPlotState.transform);
     }
-    public void Plant()
+    public void Plant(SeedData seed)
     {
-        farmPlotState.CurrentState.Plant(testRadish);
+        farmPlotState.CurrentState.Plant(seed);
     }
     public void Harvest()
     {

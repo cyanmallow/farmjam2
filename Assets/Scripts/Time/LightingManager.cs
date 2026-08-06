@@ -47,7 +47,7 @@ public class LightingManager : MonoBehaviour
             }
             else
             {
-                Light[] lights = FindObjectsOfType<Light>();
+                Light[] lights = FindObjectsByType<Light>(FindObjectsSortMode.None);
                 foreach (Light light in lights)
                 {
                     if (light.type == LightType.Directional)

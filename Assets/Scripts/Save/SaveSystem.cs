@@ -1,6 +1,6 @@
-using UnityEngine;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class GameSaveData
@@ -9,17 +9,19 @@ public class GameSaveData
     public int currentDay;
     public float timeOfDay;
 }
+
 public static class SaveSystem
 {
     private const string FileName = "gamesave.json";
+    private static GameSaveData pendingLoadData;
 
-    public static void SaveGame(StatManager statManager, DayMonthManager dayMonthManager, LightingManager lightingManager)
+    public static void SaveGame()
     {
         GameSaveData data = new GameSaveData
         {
-            stats = new StatData(statManager),
-            currentDay = dayMonthManager.currentDay,
-            timeOfDay = lightingManager.TimeOfDay
+            stats = new StatData(StatManager.Instance),
+            currentDay = DayMonthManager.Instance.currentDay,
+            timeOfDay = LightingManager.Instance.TimeOfDay
         };
         string path = Application.persistentDataPath + "/" + FileName;
         string json = JsonUtility.ToJson(data, true);
@@ -27,7 +29,9 @@ public static class SaveSystem
 
         Debug.Log("Game saved to " + path);
     }
-    public static GameSaveData LoadGame()
+
+    // Pure read — no scene logic here
+    public static GameSaveData LoadGameOnly()
     {
         string path = Application.persistentDataPath + "/" + FileName;
         if (!File.Exists(path))
@@ -48,5 +52,32 @@ public static class SaveSystem
         dayMonthManager.currentDay = data.currentDay;
         lightingManager.TimeOfDay = data.timeOfDay;
     }
-}
 
+    // Entry point buttons should call
+    public static void LoadGame()
+    {
+        GameSaveData data = LoadGameOnly();
+        if (data == null) return;
+
+        pendingLoadData = data;
+        SceneManager.sceneLoaded += OnGameplaySceneLoaded;
+
+        int targetScene = SceneManager.GetActiveScene().buildIndex == 0
+            ? SceneManager.GetActiveScene().buildIndex + 1
+            : SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(targetScene);
+    }
+
+    private static void OnGameplaySceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= OnGameplaySceneLoaded; // unsubscribe so it only fires once
+
+        if (pendingLoadData != null)
+        {
+            ApplyLoadedData(pendingLoadData, StatManager.Instance, DayMonthManager.Instance, LightingManager.Instance);
+            pendingLoadData = null;
+        }
+        FadeScreen.Instance.FadeFromBlack(); // Fade in after loading
+    }
+}

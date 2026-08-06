@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65aeee0a9b67f8c409013f97d0d07264, type: 3}
+  m_Script: {fileID: 11500000, guid: 45cffe19f5660964b83885b08de7d027, type: 3}
   m_Name: LightingPresets
   m_EditorClassIdentifier: Assembly-CSharp::LightingPresets
   ambientColor:
     serializedVersion: 2
-    key0: {r: 1, g: 0.47358483, b: 0.65137327, a: 1}
+    key0: {r: 1, g: 0.876813, b: 0.34528297, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   directionalLightColor:
     serializedVersion: 2
-    key0: {r: 0.80566037, g: 0.971353, b: 1, a: 1}
+    key0: {r: 1, g: 1, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
@@ -74,7 +74,7 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   fogColor:
     serializedVersion: 2
-    key0: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+    key0: {r: 1, g: 1, b: 1, a: 1}
     key1: {r: 1, g: 1, b: 1, a: 1}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
