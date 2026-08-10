@@ -1,5 +1,5 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; background-image: none;">
+    <ui:VisualElement name="SettingsVisualElement" style="flex-grow: 1; background-image: none;">
         <ui:VisualElement style="flex-grow: 1; flex-direction: column; flex-wrap: nowrap; flex-shrink: 0; align-self: center; width: 264px; position: absolute; top: 20%; bottom: 30%;">
             <ui:Button text="Back" name="BackButton" style="width: 5%; height: 10%; align-self: flex-end;" />
             <ui:Slider label="Slider" value="42" high-value="100" />

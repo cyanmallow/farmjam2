@@ -1,7 +1,4 @@
-using System;
-using System.IO;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class UISettingsInGameMenu : MonoBehaviour
@@ -11,17 +8,15 @@ public class UISettingsInGameMenu : MonoBehaviour
     private Button backButton;
     private Button saveButton; 
     private Button loadButton;
+    public VisualElement settingsVisualElement;
     private void Awake()
     {
         Instance = this;
     }
     private void Start()
     {
-        gameObject.SetActive(false);
-    }
-    void OnEnable()
-    {
         document = GetComponent<UIDocument>();
+        settingsVisualElement = document.rootVisualElement.Q<VisualElement>("SettingsVisualElement");
         backButton = document.rootVisualElement.Q<Button>("BackButton");
         backButton.clicked += OnBackClicked;
 
@@ -30,8 +25,9 @@ public class UISettingsInGameMenu : MonoBehaviour
 
         loadButton = document.rootVisualElement.Q<Button>("LoadButton");
         loadButton.clicked += OnLoadClicked;
-    }
 
+        settingsVisualElement.style.visibility = Visibility.Hidden;
+    }
     private void OnLoadClicked()
     {
         SaveSystem.LoadGame();
@@ -45,7 +41,7 @@ public class UISettingsInGameMenu : MonoBehaviour
     private void OnBackClicked()
     {
         //gameObject.SetActive(false);
-        gameObject.SetActive(false);
+        settingsVisualElement.style.visibility = Visibility.Hidden;
     }
 
 }

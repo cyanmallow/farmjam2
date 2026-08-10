@@ -1,20 +1,29 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(UIDocument))]
 public class UIOverlay : MonoBehaviour
 {
     public UIOverlay Instance {  get; private set; }
     private UIDocument document;
+
     private Label currentDayLabel;
     private Label currentTimeLabel;
     private Label hungerLabel;
     private Label fatigueLabel;
     private Label painLabel;
     private Label sanityLabel;
+
     private Button settingsButton;
+    private VisualElement inventoryUI;
+    private VisualElement container;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
 
-    void Awake()
+    void Start()
     {
         document = GetComponent<UIDocument>();
         currentDayLabel = document.rootVisualElement.Q<Label>("DayLabel");
@@ -24,14 +33,34 @@ public class UIOverlay : MonoBehaviour
         painLabel = document.rootVisualElement.Q<Label>("PainLabel");
         sanityLabel = document.rootVisualElement.Q<Label>("SanityLabel");
 
+        container = document.rootVisualElement.Q<VisualElement>("Container");
+        container.pickingMode = PickingMode.Ignore;
+
         settingsButton = document.rootVisualElement.Q<Button>("SettingsButton");
         settingsButton.clicked += OnSettingsClicked;
+
+        inventoryUI = document.rootVisualElement.Q<VisualElement>("InventoryVE");
+        inventoryUI.RegisterCallback<ClickEvent>(evt =>
+        {
+            UIInventory.Instance.ToggleInventoryUI();
+            ToggleOverlayUI();
+        });
         UpdateInfo();
     }
-
+    public void ToggleOverlayUI()
+    {
+        if (container.style.visibility == Visibility.Hidden)
+        {
+            container.style.visibility = Visibility.Visible;
+        }
+        else
+        {
+            container.style.visibility = Visibility.Hidden;
+        }
+    }
     private void OnSettingsClicked()
     {
-        UISettingsInGameMenu.Instance.gameObject.SetActive(true);
+        UISettingsInGameMenu.Instance.settingsVisualElement.style.visibility = Visibility.Visible;
     }
 
     public void UpdateInfo()

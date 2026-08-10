@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEngine.Rendering.DebugUI.MessageBox;
 
 public class FadeScreen : MonoBehaviour
 {
@@ -15,13 +14,10 @@ public class FadeScreen : MonoBehaviour
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        fadeOverlay.style.visibility = Visibility.Hidden;
-    }
-    private void Start()
-    {
         fadeDocument = GetComponent<UIDocument>();
-        fadeOverlay = fadeDocument.rootVisualElement.Q<VisualElement>("FadeOverlay");
+        fadeOverlay = fadeDocument.rootVisualElement.Q<VisualElement>("BlackScreen");
         fadeOverlay.pickingMode = PickingMode.Ignore; // allow input when not fading
+        fadeOverlay.style.visibility = Visibility.Hidden;
     }
     public void FadeToBlack(Action onComplete = null) => StartCoroutine(Fade(0f, 1f, onComplete));
     public void FadeFromBlack(Action onComplete = null) => StartCoroutine(Fade(1f, 0f, onComplete));

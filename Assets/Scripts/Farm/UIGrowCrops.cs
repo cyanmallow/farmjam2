@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -85,12 +84,13 @@ public class UIGrowCrops : MonoBehaviour
         // Get the list of seeds from the SeedManager
         foreach (var seed in allSeeds)
         {
+            Debug.Log($"Seed name: '{seed.itemName}'");
             // Create a new button for each seed
             var seedButton = new Button(() => OnSeedSelected(seed))
             {
-                text = seed.seedName
+                text = seed.itemName
             };
-            seedButton.AddToClassList("seed-button"); // Add a class for styling if needed
+            seedButton.AddToClassList("seed-button");
             // Add the button to the container
             seedButtonContainer.Add(seedButton);
         }

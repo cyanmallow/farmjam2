@@ -60,13 +60,16 @@ public static class SaveSystem
         if (data == null) return;
 
         pendingLoadData = data;
-        SceneManager.sceneLoaded += OnGameplaySceneLoaded;
 
-        int targetScene = SceneManager.GetActiveScene().buildIndex == 0
-            ? SceneManager.GetActiveScene().buildIndex + 1
-            : SceneManager.GetActiveScene().buildIndex;
+        FadeScreen.Instance.FadeToBlack(() =>
+        { 
+            SceneManager.sceneLoaded += OnGameplaySceneLoaded;
+            int targetScene = SceneManager.GetActiveScene().buildIndex == 0
+                ? SceneManager.GetActiveScene().buildIndex + 1
+                : SceneManager.GetActiveScene().buildIndex;
 
-        SceneManager.LoadScene(targetScene);
+            SceneManager.LoadScene(targetScene);
+        }); 
     }
 
     private static void OnGameplaySceneLoaded(Scene scene, LoadSceneMode mode)
