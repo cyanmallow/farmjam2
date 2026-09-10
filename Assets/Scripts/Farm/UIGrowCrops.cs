@@ -41,6 +41,8 @@ public class UIGrowCrops : MonoBehaviour
 
         // Initialize the seed selection panel and button container
         seedSelectionPanel = chooseSeedDocument.rootVisualElement.Q<VisualElement>("SeedSelectionPanel");
+        // theres no SeedButtonContainer visualElement in the UI, but it doesnt create null, why? 
+        // oh its in there, deep inside the visual element of scrollview
         seedButtonContainer = chooseSeedDocument.rootVisualElement.Q<VisualElement>("SeedButtonContainer");
 
         PopulateSeedButtons();
