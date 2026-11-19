@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +8,6 @@ public class Inventory : MonoBehaviour
     public List<InventorySlot> slots;
     public event Action OnInventoryChanged;
     public static Inventory Instance { get; private set; }
-
     void Awake()
     {
         Instance = this;
@@ -19,42 +17,27 @@ public class Inventory : MonoBehaviour
             slots.Add(new InventorySlot());
         }
     }
-
-    public bool AddItem(ItemData item, int quantity = 1)
+    public bool AddItem(ItemData item, int amountToAdd)
     {
-        // todo: check if item is stackable and if so, add to existing stack first
+        // todo: check if item exists and if so, add to existing stack first
         foreach (var slot in slots)
         {
             if (!slot.IsEmpty)
             {
-                int spaceLeft = item.maxStackSize - slot.quantity;
-                int amountToAdd = Mathf.Min(spaceLeft, quantity);
                 slot.quantity += amountToAdd;
-                quantity -= amountToAdd;
-                if (quantity <= 0)
-                {
-                    OnInventoryChanged?.Invoke();
-                    Debug.Log($"Added {amountToAdd} of {item.itemName} to existing stack. Remaining quantity: {quantity}");
-                    return true;
-
-                }
             }
             else if (slot.IsEmpty)
             {
                 slot.item = item;
-                slot.quantity = quantity;
-                quantity = 0;
+                slot.quantity = amountToAdd;
                 OnInventoryChanged?.Invoke();
-                Debug.Log($"Added {quantity} of {item.itemName} to empty slot. Remaining quantity: {quantity}");
-                return true;
             }
+            Debug.Log($"Added {amountToAdd} of {item.itemName} to empty slot. Remaining quantity: {slot.quantity}");
         }
         OnInventoryChanged?.Invoke();
-        Debug.Log($"Could not add {quantity} of {item.itemName}. Inventory full.");
-        return quantity <= 0; // Inventory full
+        return true; // Successfully added the item to the inventory
     }
-
-    public bool RemoveItem(ItemData item, int quantity = 1)
+    public bool RemoveItem(ItemData item, int quantity)
     {
         foreach (var slot in slots)
         {
@@ -81,7 +64,6 @@ public class Inventory : MonoBehaviour
         OnInventoryChanged?.Invoke();
         return false; // Not enough items to remove
     }
-
     public int GetItemCount(ItemData item)
     {
         int count = 0;

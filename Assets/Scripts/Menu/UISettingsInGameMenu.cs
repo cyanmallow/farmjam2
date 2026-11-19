@@ -6,6 +6,7 @@ public class UISettingsInGameMenu : MonoBehaviour
     public static UISettingsInGameMenu Instance { get; private set; }
     private UIDocument document;
     private Button backButton;
+    private Button wholeButton;
     private Button saveButton; 
     private Button loadButton;
     public VisualElement settingsVisualElement;
@@ -19,6 +20,9 @@ public class UISettingsInGameMenu : MonoBehaviour
         settingsVisualElement = document.rootVisualElement.Q<VisualElement>("SettingsVisualElement");
         backButton = document.rootVisualElement.Q<Button>("BackButton");
         backButton.clicked += OnBackClicked;
+
+        wholeButton = document.rootVisualElement.Q<Button>("WholeContainer");
+        wholeButton.clicked += OnBackClicked;
 
         saveButton = document.rootVisualElement.Q<Button>("SaveButton");
         saveButton.clicked += OnSaveClicked;

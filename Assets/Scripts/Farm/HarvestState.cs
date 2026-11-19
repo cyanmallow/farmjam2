@@ -3,6 +3,8 @@ using UnityEngine.UIElements;
 
 public class HarvestState : State
 {
+    public override string StateName => "harvest";
+    public override bool CanHarvest => true;
     private int countdownToWither = 2;
     public HarvestState(FarmPlotState farmPlotState) : base(farmPlotState)    {    }
     public override void OnEnter()

@@ -3,9 +3,9 @@ using UnityEngine.UIElements;
 
 public class DeadState : State
 {
-    public DeadState(FarmPlotState farmPlotState) : base(farmPlotState)
-    {
-    }
+    public DeadState(FarmPlotState farmPlotState) : base(farmPlotState)    {    }
+    public override string StateName => "dead";
+    public override bool CanClear => true;
     public override void OnEnter()
     {
         // Implementation for entering the dead state

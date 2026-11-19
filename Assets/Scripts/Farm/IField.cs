@@ -4,16 +4,18 @@ using UnityEngine;
 public class IField : MonoBehaviour, IInteractable
 {
     public FarmPlotState farmPlotState;
-    private UIGrowCrops uIGrowCrops;
-
+    public bool CanPlant => farmPlotState.CurrentState.CanPlant;
+    public bool CanWater => farmPlotState.CurrentState.CanWater;
+    public bool CanClear => farmPlotState.CurrentState.CanClear;
+    public bool CanHarvest => farmPlotState.CurrentState.CanHarvest;
+    public string StateName => farmPlotState.CurrentState.StateName;
     private void Awake()
     {
         farmPlotState = GetComponent<FarmPlotState>();
-        uIGrowCrops = FindFirstObjectByType<UIGrowCrops>();
     }
     public void OnClickAction()
     {
-        uIGrowCrops.ShowPanel(this);
+        OptionsFarmPlot.Instance.Test2options(this);
         PlayerMovement.Instance.WalkTo(farmPlotState.transform);
     }
     public void Plant(SeedData seed)
@@ -31,5 +33,9 @@ public class IField : MonoBehaviour, IInteractable
     public void AdvanceGrowth()
     {
         farmPlotState.CurrentState.GrowUp();
+    }
+    public void Clear()
+    {
+        farmPlotState.CurrentState.Clear();
     }
 }

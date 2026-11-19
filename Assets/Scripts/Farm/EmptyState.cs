@@ -3,6 +3,8 @@ using UnityEngine;
 public class EmptyState : State
 {
     public EmptyState(FarmPlotState farmPlotState) : base(farmPlotState)    {    }
+    public override string StateName => "empty";
+    public override bool CanPlant => true;
     public override void OnEnter()
     {
         Debug.Log("Field is empty");
@@ -10,6 +12,7 @@ public class EmptyState : State
     }
     public override void Plant(SeedData seed)
     {
+        // plant and switch state
         farmPlotState.tile.StartGrowing(seed);
         DayMonthManager.Instance.AddTime(2);
         farmPlotState.SwitchState(farmPlotState.GrowingStateInstance);

@@ -1,6 +1,0 @@
-:root {
-    flex-direction: row;
-    flex-grow: 1;
-    font-size: 12px;
-    -unity-text-align: middle-center;
-}

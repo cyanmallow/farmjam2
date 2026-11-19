@@ -5,6 +5,10 @@ public class GrowingState : State
 {
     private bool isWatered;
     public GrowingState(FarmPlotState farmPlotState) : base(farmPlotState)    {    }
+    public override string StateName => "growing";
+    public override bool CanWater => true;
+    public override bool CanClear => true;
+
     public override void OnEnter()
     {
         isWatered = false;

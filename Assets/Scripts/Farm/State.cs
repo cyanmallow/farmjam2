@@ -12,7 +12,15 @@ public abstract class State
     {
         farmPlotState = state;
     }
+    public abstract string StateName { get; } // 'growing', 'ready to harvest', 'empty', etc.
+                                              // This is used to identify the state
+                                              // and can be useful for debugging or for triggering specific behaviors
+                                              // based on the state.
+    public virtual bool CanPlant => false; // default to false, override in specific states where planting is allowed
+    public virtual bool CanClear => false;
 
+    public virtual bool CanWater => false;
+    public virtual bool CanHarvest => false;
     // no default
     public virtual void Clear()
     {

@@ -5,6 +5,9 @@ using UnityEngine.UIElements;
 public class WitheringState : State
 {
     private bool isWatered;
+    public override string StateName => "withering";
+    public override bool CanClear => true;
+    public override bool CanHarvest => true;
 
     public WitheringState(FarmPlotState farmPlotState) : base(farmPlotState)    {    }
 

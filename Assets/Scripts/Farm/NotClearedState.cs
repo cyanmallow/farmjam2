@@ -4,9 +4,9 @@ using UnityEngine.UIElements;
 public class NotClearedState : State
 {
     private int timesLeftToClear; // Number of times the player needs spend to clear the plot
-    public NotClearedState(FarmPlotState farmPlotState) : base(farmPlotState)
-    {
-    }
+    public NotClearedState(FarmPlotState farmPlotState) : base(farmPlotState)    {    }
+    public override string StateName => "notcleared";
+    public override bool CanClear => true;
     public override void OnEnter()
     {
         // Implementation for entering the not cleared state

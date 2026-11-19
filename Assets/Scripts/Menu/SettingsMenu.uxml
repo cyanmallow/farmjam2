@@ -1,11 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="SettingsVisualElement" style="flex-grow: 1; background-image: none;">
-        <ui:VisualElement style="flex-grow: 1; flex-direction: column; flex-wrap: nowrap; flex-shrink: 0; align-self: center; width: 264px; position: absolute; top: 20%; bottom: 30%;">
-            <ui:Button text="Back" name="BackButton" style="width: 5%; height: 10%; align-self: flex-end;" />
+    <ui:VisualElement name="SettingsVisualElement" style="flex-grow: 1; width: 100%; height: 100%;">
+        <ui:Button name="WholeContainer" enabled="true" style="position: absolute; width: 100%; height: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; background-color: rgba(188, 188, 188, 0);" />
+        <ui:VisualElement name="ColoredBackground" style="flex-grow: 0; width: 70%; height: 60%; flex-shrink: 0; align-self: center; align-content: center; justify-content: center; -unity-text-align: middle-left; background-color: rgba(168, 135, 176, 0.61); margin-top: 0%; margin-bottom: 0%; position: absolute; margin-right: 0%; margin-left: 0%; top: 25%; bottom: 25%; left: 15%; right: 15%;">
+            <ui:Button text="Back" name="BackButton" style="width: 5%; height: 10%; align-self: flex-end; font-size: 18px;" />
             <ui:Slider label="Slider" value="42" high-value="100" />
-            <ui:VisualElement style="flex-grow: 1; flex-direction: row; align-content: center; align-self: center;">
-                <ui:Button text="Save" name="SaveButton" />
-                <ui:Button text="Load" name="LoadButton" />
+            <ui:VisualElement name="SaveLoadVisualElement" style="flex-grow: 0; flex-wrap: nowrap; flex-direction: row; flex-shrink: 0; align-content: center; align-self: center;">
+                <ui:Button text="Save" name="SaveButton" style="font-size: 18px; width: 30%;" />
+                <ui:Button text="Load" name="LoadButton" style="font-size: 18px; width: 30%;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

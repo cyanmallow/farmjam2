@@ -1,10 +1,15 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Inventory/UI.uss?fileID=7433441132597879392&amp;guid=2dd5e6eb7ec12d246b9783af1ab84d05&amp;type=3#UI" />
     <Style src="project://database/Assets/Scripts/Farm/seed-button.uss?fileID=7433441132597879392&amp;guid=7d949a2ad3efef446a3baed5f2ce6d1a&amp;type=3#seed-button" />
-    <ui:VisualElement name="MainPanel" style="flex-grow: 0; width: 30%; height: 60%; -unity-text-align: middle-center; white-space: nowrap; align-self: center; justify-content: flex-start; align-items: center; align-content: center; position: absolute; top: auto; left: auto; background-color: rgb(45, 0, 134); right: 5%; opacity: 0.82; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; font-size: 12px;">
-        <ui:ScrollView name="ScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="height: 80%; width: 80%; font-size: 12px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; flex-grow: 1;">
-            <ui:VisualElement name="OptionsContainer" style="flex-grow: 1;" />
-        </ui:ScrollView>
-        <ui:Button text="Cancel" name="CancelButton" style="margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 12px; bottom: auto;" />
+    <Style src="project://database/Assets/option-unavailable.uss?fileID=7433441132597879392&amp;guid=1afad6e1ea8c34448a660ec5aadd58bf&amp;type=3#option-unavailable" />
+    <Style src="project://database/Assets/time-button.uss?fileID=7433441132597879392&amp;guid=f687fca6b89bc11458b7e8c1bf1cd7b6&amp;type=3#time-button" />
+    <ui:VisualElement name="WholePanel" style="flex-grow: 1;">
+        <ui:Button text="Button" name="OutsideButton" style="position: absolute; flex-grow: 1; width: 100%; height: 100%; color: rgba(27, 27, 27, 0); border-left-color: rgba(149, 149, 149, 0); border-right-color: rgba(149, 149, 149, 0); border-top-color: rgba(149, 149, 149, 0); border-bottom-color: rgba(149, 149, 149, 0); background-color: rgba(188, 188, 188, 0);" />
+        <ui:VisualElement name="MainPanel" style="flex-grow: 0; width: 30%; height: 60%; -unity-text-align: middle-center; white-space: nowrap; align-self: center; justify-content: flex-start; align-items: center; align-content: center; position: absolute; top: auto; left: auto; background-color: rgb(45, 0, 134); right: 5%; opacity: 0.82; margin-top: 10%; margin-right: 0; margin-bottom: 10%; margin-left: 0; font-size: 12px; flex-shrink: 0; min-height: 60%; max-height: 60%; padding-top: 6px; padding-right: 6px; padding-bottom: 6px; padding-left: 6px; min-width: 25%; max-width: 180px;">
+            <ui:ScrollView name="ScrollView" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" style="height: 80%; width: 100%; font-size: 12px; padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; flex-grow: 1;">
+                <ui:VisualElement name="OptionsContainer" style="flex-grow: 1;" />
+            </ui:ScrollView>
+            <ui:Button text="Cancel" name="CancelButton" style="margin-top: 2px; margin-right: 2px; margin-bottom: 2px; margin-left: 2px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; font-size: 18px; bottom: auto;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

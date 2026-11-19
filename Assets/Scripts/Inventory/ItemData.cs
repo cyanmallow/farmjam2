@@ -7,7 +7,6 @@ public class ItemData : ScriptableObject
     public ItemType itemType;
     public Sprite itemIcon;
     [TextArea] public string itemDescription;
-    public int maxStackSize = 99;
 }
 
 public enum ItemType
