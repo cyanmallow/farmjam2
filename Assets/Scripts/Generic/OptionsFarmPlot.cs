@@ -6,7 +6,7 @@ public class OptionsFarmPlot : MonoBehaviour
     public static OptionsFarmPlot Instance { get; private set; }
     private IField currentField;
     private void Awake() => Instance = this;
-    public void Test2options(IField field)
+    public void DoWhatWithPlot(IField field)
     {
         currentField = field;
 
@@ -23,7 +23,7 @@ public class OptionsFarmPlot : MonoBehaviour
                 action = () => currentField?.Water(), 
                 optionTime = 1,
                 isOptionAvailable = currentField.CanWater,
-                unavailableReason = $"Can't water, this plot is {currentField.StateName}."
+                unavailableReason = $"Can't water, this plot is {currentField.StateName} or already watered."
             },
             new Option {
                 optionName = "Harvest",
@@ -40,7 +40,6 @@ public class OptionsFarmPlot : MonoBehaviour
                 unavailableReason = $"Can't clear, this plot is {currentField.StateName}."
             }
         };
-
         PopulateButtons.Instance.GiveOptions(options, chosen => chosen.action?.Invoke());
     }
 
@@ -56,11 +55,11 @@ public class OptionsFarmPlot : MonoBehaviour
 
             string reason = !currentField.CanPlant
                 ? $"Can't plant, this plot is {currentField.StateName}."
-                : $"You have no {s.displayName} seeds.";
+                : $"You have no {s.itemName} seeds.";
 
             seeds.Add(new Option
             {
-                optionName = $"{s.displayName} x{owned}",
+                optionName = $"{s.itemName} x{owned}",
                 isOptionAvailable = currentField.CanPlant && owned > 0,
                 unavailableReason = reason,
                 action = () =>

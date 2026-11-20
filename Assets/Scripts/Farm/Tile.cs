@@ -118,4 +118,13 @@ public class Tile : MonoBehaviour
             }
         }
     }
+    public void ClearField()
+    {
+        plantedSeed = null;
+        growthTime = 0f;
+        IsFullyGrown = false;
+        witherTime = 0f;
+        deadPoint = 0;
+        Debug.Log("The field has been cleared.");
+    }
 }

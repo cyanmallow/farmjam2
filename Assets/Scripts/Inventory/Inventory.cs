@@ -19,23 +19,33 @@ public class Inventory : MonoBehaviour
     }
     public bool AddItem(ItemData item, int amountToAdd)
     {
-        // todo: check if item exists and if so, add to existing stack first
+        if (item == null || amountToAdd <= 0) return false;
+
+        // 1. add to an existing stack of the same item
         foreach (var slot in slots)
         {
-            if (!slot.IsEmpty)
+            if (!slot.IsEmpty && slot.item == item)
             {
                 slot.quantity += amountToAdd;
+                OnInventoryChanged?.Invoke();
+                return true;
             }
-            else if (slot.IsEmpty)
+        }
+
+        // 2. otherwise use the first empty slot
+        foreach (var slot in slots)
+        {
+            if (slot.IsEmpty)
             {
                 slot.item = item;
                 slot.quantity = amountToAdd;
                 OnInventoryChanged?.Invoke();
+                return true;
             }
-            Debug.Log($"Added {amountToAdd} of {item.itemName} to empty slot. Remaining quantity: {slot.quantity}");
         }
-        OnInventoryChanged?.Invoke();
-        return true; // Successfully added the item to the inventory
+
+        Debug.LogWarning("Inventory full");
+        return false;
     }
     public bool RemoveItem(ItemData item, int quantity)
     {

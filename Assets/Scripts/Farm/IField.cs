@@ -15,7 +15,7 @@ public class IField : MonoBehaviour, IInteractable
     }
     public void OnClickAction()
     {
-        OptionsFarmPlot.Instance.Test2options(this);
+        OptionsFarmPlot.Instance.DoWhatWithPlot(this);
         PlayerMovement.Instance.WalkTo(farmPlotState.transform);
     }
     public void Plant(SeedData seed)

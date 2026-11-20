@@ -8,7 +8,8 @@ public class EmptyState : State
     public override void OnEnter()
     {
         Debug.Log("Field is empty");
-
+        // if the tile is not empty, clear it
+        farmPlotState.tile.ClearField();
     }
     public override void Plant(SeedData seed)
     {

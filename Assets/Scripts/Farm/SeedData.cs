@@ -3,7 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Seed", menuName = "Inventory/Seed")]
 public class SeedData : ItemData
 {
-    public string displayName;
     public Sprite seedIcon;
 
     [Header("Growth")]

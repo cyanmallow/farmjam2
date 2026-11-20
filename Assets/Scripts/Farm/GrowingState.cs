@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class GrowingState : State
 {
-    private bool isWatered;
+    public bool isWatered;
     public GrowingState(FarmPlotState farmPlotState) : base(farmPlotState)    {    }
     public override string StateName => "growing";
-    public override bool CanWater => true;
+    public override bool CanWater => !isWatered;
     public override bool CanClear => true;
 
     public override void OnEnter()
@@ -29,7 +29,8 @@ public class GrowingState : State
     public override void Water()
     {
         isWatered = true;
-        DayMonthManager.Instance.AddTime(2);
+        // TODO: change the time somewhere else, not here, because this is just the state, not the action
+        DayMonthManager.Instance.AddTime(1);
         StatManager.Instance.AddStat("fatigue", 10);
     }
     public override void GrowUp()
@@ -50,5 +51,9 @@ public class GrowingState : State
         {
             farmPlotState.SwitchState(farmPlotState.HarvestStateInstance);
         }
+    }
+    public override void Clear()
+    {
+        farmPlotState.SwitchState(farmPlotState.EmptyStateInstance);
     }
 }
